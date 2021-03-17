@@ -1,0 +1,33 @@
+{
+  "name": "@lasca-inc/nocode-loader",
+  "version": "0.0.1",
+  "author": "Lasca Inc.",
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lasca-inc/nocode-loader.git",
+    "directory": "@lasca-inc/nocode-loader"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "watch": "rm -rf dist && tsc -w"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/lasca-inc"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
