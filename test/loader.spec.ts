@@ -1,12 +1,16 @@
-import compiler from "./compiler";
+import axios from "axios";
+import { getOutput } from "./helper";
+
+jest.mock("axios");
 
 test("simple vue.js", async () => {
-  const stats = await compiler("sample.vue");
-  let output = "";
-  const modules = stats.toJson({ source: true }).modules;
-  if (modules) {
-    output = <string>modules[0].source;
-  }
+  const resp = {
+    data: {
+      template: "<p>hoge</p>",
+    },
+  };
+  (axios as jest.Mocked<typeof axios>).get.mockResolvedValue(resp);
 
+  const output = await getOutput("sample.vue");
   expect(output).toBe('"<template><p>hoge</p></template>\\n"');
 });
