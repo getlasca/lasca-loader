@@ -12,6 +12,9 @@
 // });
 
 export default function loader(source: string) {
+  const ext = this.resourcePath.split("/").reverse()[0].split(".")[1];
+  console.log(ext);
+
   // const res = await axios.get(`/page/hoge`);
   // console.log(res.data.template);
 
