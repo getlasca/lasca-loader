@@ -1,1 +1,3 @@
-<template><lasca></lasca></template>
+<template>
+  <lasca></lasca>
+</template>
