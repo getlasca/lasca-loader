@@ -12,5 +12,5 @@ test("simple vue.js", async () => {
   (axios as jest.Mocked<typeof axios>).get.mockResolvedValue(resp);
 
   const output = await getOutput("sample.vue");
-  expect(output).toBe('"<template><p>hoge</p></template>\\n"');
+  expect(output).toBe('"<template><p>hoge</p></template>"');
 });
