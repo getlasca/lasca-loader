@@ -1,0 +1,16 @@
+name: nocode-loader-release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}" >> .npmrc
+        name: add auth token for npm packages
+      - run: npm install && npm run build
+        name: install packages and build
+      - run: npm publish
