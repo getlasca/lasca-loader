@@ -1,6 +1,6 @@
 {
   "name": "@lasca-inc/nocode-loader",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Lasca Inc.",
   "license": "UNLICENSED",
   "main": "dist/index.js",
