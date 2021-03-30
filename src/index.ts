@@ -5,6 +5,7 @@ const ENDPOINT_URL =
 
 export default async function loader(source: string) {
   const ext = this.resourcePath.split("/").reverse()[0].split(".")[1];
+  console.log(this.resourcePath);
   console.log(ext);
 
   const res = await axios.get(`${ENDPOINT_URL}/page/hoge`);
