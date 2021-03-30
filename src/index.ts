@@ -13,9 +13,14 @@ export default async function loader(source: string) {
   console.log(ext);
 
   const res = await axios.get(`${ENDPOINT_URL}/page/hoge`);
-  const output = source.replace(/\<lasca\>\<\/lasca\>/g, res.data.template);
 
-  console.log(output);
+  if (this.resourceQuery.includes("type=template")) {
+    console.log("template");
+    source = source.replace(/\<lasca\>\<\/lasca\>/g, res.data.template);
+  } else if (this.resourceQuery.includes("type=style")) {
+    console.log("style");
+  }
 
-  return output;
+  console.log(source);
+  return source;
 }
