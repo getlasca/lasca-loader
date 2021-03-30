@@ -8,11 +8,9 @@ export default async function loader(source: string) {
   console.log(ext);
 
   const res = await axios.get(`${ENDPOINT_URL}/page/hoge`);
-  const output = source
-    .replace(/\<lasca\>\<\/lasca\>/g, res.data.template)
-    .replace(/\r?\n?\s/g, "");
+  const output = source.replace(/\<lasca\>\<\/lasca\>/g, res.data.template);
 
-  console.log(JSON.stringify(output));
+  console.log(output);
 
-  return JSON.stringify(output);
+  return output;
 }
