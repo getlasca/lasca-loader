@@ -19,6 +19,7 @@ export default async function loader(source: string) {
     source = source.replace(/\<lasca\>\<\/lasca\>/g, res.data.template);
   } else if (this.resourceQuery.includes("type=style")) {
     console.log("style");
+    source = source + res.data.css;
   }
 
   console.log(source);
