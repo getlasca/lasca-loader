@@ -11,7 +11,7 @@ export default async function loader(source: string) {
   if (ext === "jsx") {
     source = source.replace(
       /\<lasca\>\<\/lasca\>/g,
-      `<div>${res.data.jsx}<style>${res.data.css}</style></div>`
+      `<div>${res.data.jsx}<style>{\`${res.data.css}\`}</style></div>`
     );
   } else if (this.resourceQuery.includes("type=template")) {
     source = source.replace(/\<lasca\>\<\/lasca\>/g, res.data.template);
