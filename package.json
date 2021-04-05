@@ -1,5 +1,5 @@
 {
-  "name": "@lasca-inc/nocode-loader",
+  "name": "@lasca/loader",
   "version": "0.0.10",
   "author": "Lasca Inc.",
   "license": "UNLICENSED",
@@ -18,7 +18,8 @@
     "test": "jest test/*"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/lasca-inc"
+    "registry": "https://npm.pkg.github.com/lasca-inc",
+    "name": "@lasca/loader"
   },
   "devDependencies": {
     "@types/jest": "^26.0.21",
