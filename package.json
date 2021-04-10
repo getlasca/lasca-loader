@@ -1,13 +1,13 @@
 {
-  "name": "@lasca/loader",
-  "version": "0.0.10",
+  "name": "@getlasca/lasca-loader",
+  "version": "0.0.11",
   "author": "Lasca Inc.",
   "license": "UNLICENSED",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:lasca-inc/nocode-loader.git",
-    "directory": "@lasca-inc/nocode-loader"
+    "url": "git@github.com:getlasca/lasca-loader.git",
+    "directory": "@getlasca/lasca-loader"
   },
   "files": [
     "dist/*"
@@ -18,8 +18,8 @@
     "test": "jest test/*"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/lasca-inc",
-    "name": "@lasca/loader"
+    "registry": "https://npm.pkg.github.com/getlasca",
+    "name": "@getlasca/lasca-loader"
   },
   "devDependencies": {
     "@types/jest": "^26.0.21",

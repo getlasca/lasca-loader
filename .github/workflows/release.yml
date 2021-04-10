@@ -1,4 +1,4 @@
-name: nocode-loader-release
+name: package-release
 on:
   push:
     branches:
