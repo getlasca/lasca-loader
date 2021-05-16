@@ -1,6 +1,6 @@
 {
   "name": "@getlasca/lasca-loader",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "Lasca Inc.",
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -18,8 +18,7 @@
     "test": "jest test/*"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/getlasca",
-    "name": "@getlasca/lasca-loader"
+    "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
     "@types/jest": "^26.0.21",
