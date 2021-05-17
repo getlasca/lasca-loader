@@ -1,13 +1,12 @@
 {
-  "name": "@getlasca/lasca-loader",
-  "version": "0.0.12",
+  "name": "lasca-loader",
+  "version": "0.0.1",
   "author": "Lasca Inc.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:getlasca/lasca-loader.git",
-    "directory": "@getlasca/lasca-loader"
+    "url": "https://github.com/getlasca/lasca-loader.git"
   },
   "files": [
     "dist/*"
@@ -16,9 +15,6 @@
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
     "test": "jest test/*"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
     "@types/jest": "^26.0.21",
@@ -34,6 +30,7 @@
     "webpack": "^5.27.2"
   },
   "dependencies": {
+    "@lasca/template-converter": "^0.0.1",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0"
   },
