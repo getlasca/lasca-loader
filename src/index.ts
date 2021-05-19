@@ -1,4 +1,5 @@
 import { GraphQLClient, gql } from "graphql-request";
+import convert from "@lasca/template-converter";
 
 const ENDPOINT_URL = "https://api.lasca.app/query";
 
@@ -18,32 +19,22 @@ export default async function loader(source: string) {
       }
     }
   `;
-  await client.request(query);
   const res = await client.request(query);
+
   console.log(res);
-  console.log(res.breakpoints[0].min);
+
+  const output = convert({ breakpoints: res.breakpoints }, [], [], [], [], []);
 
   if (ext === "jsx") {
     source = source.replace(
       /\<lasca\>\<\/lasca\>/g,
-      `<div>${res.breakpoints[0].min}</div>`
+      `<div>${output.template}<style>{\`${output.css}\`}</style></div>`
     );
   } else if (this.resourceQuery.includes("type=template")) {
-    source = source.replace(/\<lasca\>\<\/lasca\>/g, res.breakpoints[0].min);
+    source = source.replace(/\<lasca\>\<\/lasca\>/g, output.template);
   } else if (this.resourceQuery.includes("type=style")) {
-    source = source + "";
+    source = source + output.css;
   }
-
-  // if (ext === "jsx") {
-  //   source = source.replace(
-  //     /\<lasca\>\<\/lasca\>/g,
-  //     `<div>${res.data.jsx}<style>{\`${res.data.css}\`}</style></div>`
-  //   );
-  // } else if (this.resourceQuery.includes("type=template")) {
-  //   source = source.replace(/\<lasca\>\<\/lasca\>/g, res.data.template);
-  // } else if (this.resourceQuery.includes("type=style")) {
-  //   source = source + res.data.css;
-  // }
 
   return source;
 }
