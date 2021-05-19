@@ -4,11 +4,18 @@ import convert from "@lasca/template-converter";
 const ENDPOINT_URL = "https://api.lasca.app/query";
 
 export default async function loader(source: string) {
+  const token = process.env.LASCA_API_TOKEN;
   const endpoint = process.env.ENDPOINT_URL || ENDPOINT_URL;
   const ext = this.resourcePath.split("/").reverse()[0].split(".")[1];
-
   const client = new GraphQLClient(endpoint);
-  client.setHeader("X-LASCA-TOKEN", process.env.LASCA_API_TOKEN || "no_token");
+
+  if (!token) {
+    this.emitError(
+      new Error("Environment variable LASCA_API_TOKEN is not set.")
+    );
+    return;
+  }
+  client.setHeader("X-LASCA-TOKEN", token);
 
   const query = gql`
     query GetBreakpoints {
@@ -27,9 +34,6 @@ export default async function loader(source: string) {
       figma: JSON.parse(b.figma),
     };
   });
-
-  console.log(breakpoints);
-
   const output = convert({ breakpoints: breakpoints }, [], [], [], [], []);
 
   if (ext === "jsx") {
