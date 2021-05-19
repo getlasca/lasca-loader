@@ -20,10 +20,17 @@ export default async function loader(source: string) {
     }
   `;
   const res = await client.request(query);
+  const breakpoints = res.breakpoints.map((b: any) => {
+    return {
+      min: b.min,
+      max: b.max,
+      figma: JSON.parse(b.figma),
+    };
+  });
 
-  console.log(res);
+  console.log(breakpoints);
 
-  const output = convert({ breakpoints: res.breakpoints }, [], [], [], [], []);
+  const output = convert({ breakpoints: breakpoints }, [], [], [], [], []);
 
   if (ext === "jsx") {
     source = source.replace(
