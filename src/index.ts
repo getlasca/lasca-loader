@@ -36,6 +36,9 @@ export default async function loader(source: string) {
   });
   const output = convert({ breakpoints: breakpoints }, [], [], [], [], []);
 
+  console.log("loader template: " + output.template);
+  console.log("loader css: " + output.css);
+
   if (ext === "jsx") {
     source = source.replace(
       /\<lasca\>\<\/lasca\>/g,
