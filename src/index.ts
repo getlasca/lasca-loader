@@ -23,16 +23,17 @@ export default async function loader(source: string) {
         min
         max
         figma
+        conditions {
+          nodeId
+          expression
+        }
       }
     }
   `;
   const res = await client.request(query);
   const breakpoints = res.breakpoints.map((b: any) => {
-    return {
-      min: b.min,
-      max: b.max,
-      figma: JSON.parse(b.figma),
-    };
+    b.figma = JSON.parse(b.figma);
+    return b;
   });
   const output = convert({ breakpoints: breakpoints }, [], [], [], [], []);
 
