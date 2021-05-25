@@ -35,7 +35,7 @@ export default async function loader(source: string) {
     b.figma = JSON.parse(b.figma);
     return b;
   });
-  const output = convert({ breakpoints: breakpoints }, [], [], [], [], []);
+  const output = convert(breakpoints);
 
   console.log("loader template: " + output.template);
   console.log("loader css: " + output.css);
