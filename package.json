@@ -1,6 +1,6 @@
 {
   "name": "lasca-loader",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "author": "Lasca Inc.",
   "license": "MIT",
   "main": "dist/index.js",
@@ -30,7 +30,7 @@
     "webpack": "^5.27.2"
   },
   "dependencies": {
-    "@lasca/template-converter": "^0.0.12",
+    "@lasca/template-converter": "^0.0.13",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0"
   },
