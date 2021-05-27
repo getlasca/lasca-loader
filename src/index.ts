@@ -27,6 +27,11 @@ export default async function loader(source: string) {
           nodeId
           expression
         }
+        events {
+          nodeId
+          eventType
+          name
+        }
       }
     }
   `;
