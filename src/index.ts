@@ -23,6 +23,10 @@ export default async function loader(source: string) {
         min
         max
         figma
+        variables {
+          nodeId
+          expression
+        }
         conditions {
           nodeId
           expression
