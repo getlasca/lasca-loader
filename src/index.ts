@@ -31,6 +31,11 @@ export default async function loader(source: string) {
           nodeId
           expression
         }
+        loops {
+          nodeId
+          variable
+          itemVariable
+        }
         events {
           nodeId
           eventType
