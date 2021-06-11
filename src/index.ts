@@ -22,7 +22,6 @@ export default async function loader(source: string) {
       breakpoints {
         min
         max
-        figma
         variables {
           nodeId
           expression
@@ -41,12 +40,15 @@ export default async function loader(source: string) {
           eventType
           name
         }
+        importedFigma {
+          figma
+        }
       }
     }
   `;
   const res = await client.request(query);
   const breakpoints = res.breakpoints.map((b: any) => {
-    b.figma = JSON.parse(b.figma);
+    b.figma = JSON.parse(b.importedFigma.figma);
     return b;
   });
   const output = convert(breakpoints);
