@@ -507,10 +507,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@lasca/template-converter@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@lasca/template-converter/-/template-converter-0.0.22.tgz#3edc3ad76f012e49665276b57de01ea7a8a84699"
-  integrity sha512-EdRIRlwVurtjo7/08K1M8Dibh1KhC0eqiRAr/0eUVuDM6hw2ba8mqhRNXvGeEhBtMjviGudgzJppKNo/dsNSHQ==
+"@lasca/template-converter@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@lasca/template-converter/-/template-converter-0.0.23.tgz#87ebee5bd851f95d5d220b6f15f8aa7ca09dce88"
+  integrity sha512-QdYyhTBfhewyseGrr5whAqmmmEacE07QxViCXW7GHeNdpnh1XMdwi8al2iP/bsINzbCJOheM9cDkU4lwO+wqOA==
   dependencies:
     uuid "^8.3.2"
 
