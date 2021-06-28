@@ -1,3 +1,3 @@
 <template>
-  <lasca component="sample"></lasca>
+  <lasca></lasca>
 </template>
