@@ -9,6 +9,9 @@ export default async function loader(source: string) {
   const ext = this.resourcePath.split("/").reverse()[0].split(".")[1];
   const client = new GraphQLClient(endpoint);
 
+  const componentName = getComponentName(source);
+  console.log("component name: " + componentName);
+
   if (!token) {
     this.emitError(
       new Error("Environment variable LASCA_API_TOKEN is not set.")
@@ -68,4 +71,11 @@ export default async function loader(source: string) {
   }
 
   return source;
+}
+
+function getComponentName(source: string): string {
+  const el = document.createElement("html");
+  el.innerHTML = source.replace(/<\/?template>/g, "");
+  const tag = el.getElementsByTagName("lasca");
+  return tag[0].attributes[0].value;
 }
