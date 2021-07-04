@@ -42,6 +42,10 @@ export default async function loader(source: string) {
         }
         importedFigma {
           figma
+          importedImages {
+            nodeId
+            imageId
+          }
         }
       }
     }
@@ -49,6 +53,7 @@ export default async function loader(source: string) {
   const res = await client.request(query);
   const breakpoints = res.breakpoints.map((b: any) => {
     b.figma = JSON.parse(b.importedFigma.figma);
+    b.nodeImages = b.importedFigma.importedImages;
     return b;
   });
   const output = convert(breakpoints);
