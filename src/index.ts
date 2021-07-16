@@ -76,3 +76,5 @@ export default async function loader(source: string) {
 
   return source;
 }
+
+export { LascaLoaderPlugin } from "./plugin";
