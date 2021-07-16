@@ -1,5 +1,7 @@
 import * as webpack from "webpack";
-import fs from "fs";
+// import fs from "fs";
+import convert from "@lasca/template-converter";
+import request from "./request";
 
 export class LascaLoaderPlugin {
   static defaultOptions = {};
@@ -9,27 +11,26 @@ export class LascaLoaderPlugin {
     this.options = { ...LascaLoaderPlugin.defaultOptions, ...options };
   }
 
-  apply(compiler: webpack.Compiler) {
+  async apply(compiler: webpack.Compiler) {
     if (!process.env.LASCA_API_TOKEN) {
-      throw new Error("[LascaLoaderPlugin Error] Environment variable LASCA_API_TOKEN is not set.")
+      throw new Error(
+        "[LascaLoaderPlugin Error] Environment variable LASCA_API_TOKEN is not set."
+      );
     }
-    
-    console.log((compiler.options.entry as any).main.import);
 
-    const text = fs.readFileSync(
-      (compiler.options.entry as any).main.import[0],
-      "utf8"
-    );
-    console.log(text);
+    const breakpoints = await request(process.env.LASCA_API_TOKEN, []);
+    const output = convert(breakpoints);
 
-    console.log(
-      ((compiler.options.module.rules[0] as webpack.RuleSetRule).use as any)
-        .options
-    );
+    console.log("output: " + output);
 
-    ((compiler.options.module.rules[0] as webpack.RuleSetRule)
+    ((compiler.options.module.rules[3] as webpack.RuleSetRule)
       .use as any).options = {
       aaa: "xxx",
+    };
+
+    ((compiler.options.module.rules[6] as webpack.RuleSetRule)
+      .use as any).options = {
+      bbb: "yyy",
     };
   }
 }
