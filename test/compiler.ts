@@ -1,6 +1,7 @@
 import path from "path";
 import webpack, { Stats } from "webpack";
 import { createFsFromVolume, Volume } from "memfs";
+import { VueLoaderPlugin } from "vue-loader";
 
 export default (fixture: string, options = {}): Promise<Stats> => {
   const compiler = webpack({
@@ -14,6 +15,14 @@ export default (fixture: string, options = {}): Promise<Stats> => {
       rules: [
         {
           test: /\.vue$/,
+          loader: "vue-loader",
+        },
+        {
+          test: /\.css$/,
+          use: ["vue-style-loader", "css-loader"],
+        },
+        {
+          test: /\.(lasca|css)$/,
           use: {
             loader: path.resolve(__dirname, "../src/index.ts"),
             options,
@@ -21,6 +30,7 @@ export default (fixture: string, options = {}): Promise<Stats> => {
         },
       ],
     },
+    plugins: [new VueLoaderPlugin()],
   });
 
   compiler.outputFileSystem = <any>createFsFromVolume(new Volume());
