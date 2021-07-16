@@ -10,6 +10,10 @@ export class LascaLoaderPlugin {
   }
 
   apply(compiler: webpack.Compiler) {
+    if (!process.env.LASCA_API_TOKEN) {
+      throw new Error("[LascaLoaderPlugin Error] Environment variable LASCA_API_TOKEN is not set.")
+    }
+    
     console.log((compiler.options.entry as any).main.import);
 
     const text = fs.readFileSync(
