@@ -2,6 +2,7 @@ import path from "path";
 import webpack, { Stats } from "webpack";
 import { createFsFromVolume, Volume } from "memfs";
 import { VueLoaderPlugin } from "vue-loader";
+import { LascaLoaderVuePlugin } from "../src";
 
 export default (fixture: string, options = {}): Promise<Stats> => {
   const compiler = webpack({
@@ -30,7 +31,7 @@ export default (fixture: string, options = {}): Promise<Stats> => {
         },
       ],
     },
-    plugins: [new VueLoaderPlugin()],
+    plugins: [new LascaLoaderVuePlugin(), new VueLoaderPlugin()],
   });
 
   compiler.outputFileSystem = <any>createFsFromVolume(new Volume());

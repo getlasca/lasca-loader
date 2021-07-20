@@ -36,11 +36,7 @@
     "vue-template-compiler": "^2.6.14",
     "webpack": "^5.27.2"
   },
-  "dependencies": {
-    "@lasca/template-converter": "^0.0.83",
-    "graphql": "^15.5.0",
-    "graphql-request": "^3.4.0"
-  },
+  "dependencies": {},
   "jest": {
     "moduleFileExtensions": [
       "ts",

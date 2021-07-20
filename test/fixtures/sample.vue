@@ -1,5 +1,5 @@
 <template lang="lasca">
-  <lasca></lasca>
+  <lasca component="test"></lasca>
 </template>
 
 <script>
