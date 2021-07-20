@@ -1,0 +1,7 @@
+[
+  {
+    "name": "test",
+    "template": "<div class=\"class-1\">template</div>",
+    "css": ".class-1 { color: red; }"
+  }
+]
