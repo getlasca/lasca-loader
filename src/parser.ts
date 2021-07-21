@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import { JSDOM } from "jsdom";
 import { readdirVueRecursively } from "./util/file";
 import { FileComponent } from "./types";
 
@@ -10,14 +11,11 @@ export function getFileComponents(): FileComponent[] {
     const componentNames: string[] = [];
     let code = fs.readFileSync(file, "utf-8");
 
-    const templateEl = document.createElement("body");
-    templateEl.innerHTML = code;
-    const templateTag = templateEl.getElementsByTagName("template")[0]
-      .innerHTML;
+    const doc = new JSDOM(code).window.document;
+    const templateTag = doc.getElementsByTagName("template")[0].innerHTML;
 
-    const lascaEl = document.createElement("body");
-    lascaEl.innerHTML = templateTag;
-    const lascaTags = lascaEl.getElementsByTagName("lasca");
+    const docInner = new JSDOM(templateTag).window.document;
+    const lascaTags = docInner.getElementsByTagName("lasca");
 
     for (let i = 0; i < lascaTags.length; i++) {
       const attr = lascaTags[i].attributes.getNamedItem("component");
