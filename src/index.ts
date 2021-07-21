@@ -1,6 +1,7 @@
-import { getOptions } from "loader-utils";
 import path from "path";
 import fs from "fs";
+import { getOptions } from "loader-utils";
+import { JSDOM } from "jsdom";
 import { Component, FileComponent } from "./types";
 
 export default function loader(source: string) {
@@ -33,9 +34,8 @@ export default function loader(source: string) {
 }
 
 function convertVueTemplate(source: string, components: Component[]): string {
-  const el = document.createElement("body");
-  el.innerHTML = source;
-  const lascaTags = el.getElementsByTagName("lasca");
+  const doc = new JSDOM(source).window.document;
+  const lascaTags = doc.getElementsByTagName("lasca");
 
   for (let i = 0; i < lascaTags.length; i++) {
     // TODO: FIX error handling
@@ -52,7 +52,7 @@ function convertVueTemplate(source: string, components: Component[]): string {
     lascaTags[i].outerHTML = component.template;
   }
 
-  return el.innerHTML;
+  return doc.body.innerHTML;
 }
 
 function convertVueCss(

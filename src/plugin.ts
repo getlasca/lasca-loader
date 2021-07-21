@@ -25,9 +25,14 @@ export class LascaLoaderVuePlugin {
       );
     });
     if (rule && rule !== "...") {
-      (rule.use as any).options = {
+      const options = {
         fileComponents: getFileComponents(),
       };
+      if (rule.use) {
+        (rule.use as any).options = options;
+      } else {
+        rule.options = options;
+      }
     }
   }
 }
