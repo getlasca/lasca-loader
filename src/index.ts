@@ -20,7 +20,7 @@ export default function loader(source: string) {
     //   `<div>${output.template}<style>{\`${output.css}\`}</style></div>`
     // );
   } else if (this.resourceQuery.includes("type=template")) {
-    source = convertVueTemplate(source, components);
+    source = convertVueTemplate(source, components, this.resourcePath);
   } else if (this.resourceQuery.includes("type=style")) {
     source = convertVueCss(
       source,
@@ -33,21 +33,26 @@ export default function loader(source: string) {
   return source;
 }
 
-function convertVueTemplate(source: string, components: Component[]): string {
+function convertVueTemplate(
+  source: string,
+  components: Component[],
+  file: string
+): string {
   const doc = new JSDOM(source).window.document;
   const lascaTags = doc.getElementsByTagName("lasca");
 
   for (let i = 0; i < lascaTags.length; i++) {
-    // TODO: FIX error handling
     const attr = lascaTags[i].attributes.getNamedItem("component");
     if (!attr) {
-      throw new Error("component attribute is not set at lasca tag.");
+      throw new Error(
+        `component attribute of lasca tag is not set at ${file}.`
+      );
     }
     const component = components.find(
       (component) => component.name === attr.value
     );
     if (!component) {
-      throw new Error(`component name ${attr.value} is not set.`);
+      throw new Error(`component name ${attr.value} is not pulled at ${file}.`);
     }
     lascaTags[i].outerHTML = component.template;
   }
