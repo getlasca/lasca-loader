@@ -24,10 +24,7 @@ export default (fixture: string, options = {}): Promise<Stats> => {
         },
         {
           test: /\.(lasca|css)$/,
-          use: {
-            loader: path.resolve(__dirname, "../src/index.ts"),
-            options,
-          },
+          loader: "lasca-loader",
         },
       ],
     },
