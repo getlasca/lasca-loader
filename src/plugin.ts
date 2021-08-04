@@ -12,7 +12,7 @@ export class LascaLoaderVuePlugin {
   }
 
   apply(compiler: webpack.Compiler) {
-    if (!fs.existsSync(path.resolve("./.lasca/components.json"))) {
+    if (!fs.existsSync(path.resolve("./lasca/code.json"))) {
       throw new Error(
         "[ERROR] lasca components should be pulled by `lasca pull` command."
       );
