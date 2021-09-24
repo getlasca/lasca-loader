@@ -10,10 +10,8 @@ export function getFileComponents(): FileComponent[] {
   const fileComponents: FileComponent[] = vueFiles.map((file) => {
     const componentNames: string[] = [];
     let code = fs.readFileSync(file, "utf-8");
-    console.log("code: " + code);
 
     const doc = new JSDOM(code).window.document;
-    console.log("template :" + doc.getElementsByTagName("template"));
     const templateTag = doc.getElementsByTagName("template")[0].innerHTML;
 
     const docInner = new JSDOM(templateTag).window.document;
