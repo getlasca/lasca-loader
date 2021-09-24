@@ -8,7 +8,7 @@ export default function loader(source: string) {
   const fileComponents: FileComponent[] = (getOptions(this) as any)
     .fileComponents;
   const components: Component[] = JSON.parse(
-    fs.readFileSync(path.resolve("./.lasca/components.json"), "utf-8")
+    fs.readFileSync(path.resolve("./lasca/code.json"), "utf-8")
   );
 
   const ext = this.resourcePath.split("/").reverse()[0].split(".")[1];
