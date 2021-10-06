@@ -8,22 +8,8 @@ export function getFileComponents(): FileComponent[] {
   const vueFiles = readdirVueRecursively(path.resolve("."));
 
   const fileComponents: FileComponent[] = vueFiles.map((file) => {
-    const componentNames: string[] = [];
     let code = fs.readFileSync(file, "utf-8");
-
-    const doc = new JSDOM(code).window.document;
-    const templateTag = doc.getElementsByTagName("template")[0].innerHTML;
-
-    const docInner = new JSDOM(templateTag).window.document;
-    const lascaTags = docInner.getElementsByTagName("lasca");
-
-    for (let i = 0; i < lascaTags.length; i++) {
-      const attr = lascaTags[i].attributes.getNamedItem("component");
-      if (attr) {
-        componentNames.push(attr.value);
-      }
-    }
-
+    const componentNames = getComponentsFromCode(code);
     return {
       file: file,
       components: componentNames,
@@ -31,4 +17,23 @@ export function getFileComponents(): FileComponent[] {
   });
 
   return fileComponents;
+}
+
+export function getComponentsFromCode(code: string): string[] {
+  const componentNames: string[] = [];
+
+  const doc = new JSDOM(code).window.document;
+  const templateTag = doc.getElementsByTagName("template")[0].innerHTML;
+
+  const docInner = new JSDOM(templateTag).window.document;
+  const lascaTags = docInner.getElementsByTagName("lasca");
+
+  for (let i = 0; i < lascaTags.length; i++) {
+    const attr = lascaTags[i].attributes.getNamedItem("component");
+    if (attr) {
+      componentNames.push(attr.value);
+    }
+  }
+
+  return componentNames;
 }
