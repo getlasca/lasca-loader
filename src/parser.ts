@@ -22,10 +22,15 @@ export function getFileComponents(): FileComponent[] {
 export function getComponentsFromCode(code: string): string[] {
   const componentNames: string[] = [];
 
-  const doc = new JSDOM(code).window.document;
-  const templateTag = doc.getElementsByTagName("template")[0].innerHTML;
+  const template = code.replace(/\r?\n/g, "").match(/<template.+<\/template>/);
+  if (!template) {
+    return [];
+  }
 
-  const docInner = new JSDOM(templateTag).window.document;
+  const doc = new JSDOM(template[0]).window.document;
+  const templateInner = doc.getElementsByTagName("template")[0].innerHTML;
+
+  const docInner = new JSDOM(templateInner).window.document;
   const lascaTags = docInner.getElementsByTagName("lasca");
 
   for (let i = 0; i < lascaTags.length; i++) {
