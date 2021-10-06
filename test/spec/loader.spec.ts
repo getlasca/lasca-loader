@@ -1,4 +1,4 @@
-import { getOutput } from "./helper";
+import { getOutput } from "../helper";
 
 test("simple vue.js", async () => {
   const output = await getOutput("sample.vue");
