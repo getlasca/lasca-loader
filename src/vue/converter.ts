@@ -1,5 +1,5 @@
 import { JSDOM } from "jsdom";
-import { Component, FileComponentsRelation } from "../types";
+import { Component, FileComponent } from "../types";
 
 export function convertVueTemplate(
   source: string,
@@ -32,17 +32,19 @@ export function convertVueCss(
   source: string,
   file: string,
   components: Component[],
-  relations: FileComponentsRelation[]
+  fileComponents: FileComponent[]
 ): string {
   let output = source;
 
-  const relation = relations.find((v) => v.file === file);
-  if (!relation) {
+  const fileComponent = fileComponents.find(
+    (fileComponent) => fileComponent.file === file
+  );
+  if (!fileComponent) {
     return output;
   }
 
   const targetComponents = components.filter((component) => {
-    return relation.components.includes(component.name);
+    return fileComponent.components.includes(component.name);
   });
   for (let i = 0; i < targetComponents.length; i++) {
     output = output + targetComponents[i].css;
