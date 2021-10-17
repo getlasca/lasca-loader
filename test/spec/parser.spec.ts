@@ -1,4 +1,4 @@
-import { getComponentsFromCode } from "../../src/parser";
+import { getComponentsFromCode } from "../../src/vue/parser";
 
 describe("getComponentsFromCode", () => {
   test("simple", async () => {
