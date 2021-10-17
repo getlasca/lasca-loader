@@ -1,23 +1,20 @@
 import fs from "fs";
-import path from "path";
 
 export function readdirVueRecursively(dir: string): string[] {
-  const files = readdirRecursively(dir, ["node_modules", ".nuxt"]);
+  const files = readdirRecursively(dir);
   return files.filter((file) => {
-    return path.extname(file) === "vue";
+    const dotSplit = file.split("/").reverse()[0].split(".");
+    const extension = dotSplit[dotSplit.length - 1];
+    return extension === "vue";
   });
 }
 
-function readdirRecursively(
-  dir: string,
-  filterDirs: string[],
-  files: string[] = []
-): string[] {
+function readdirRecursively(dir: string, files: string[] = []): string[] {
   const dirents = fs.readdirSync(dir, { withFileTypes: true });
   const dirs = [];
   for (const dirent of dirents) {
     if (dirent.isDirectory()) {
-      if (filterDirs.includes(dirent.name)) {
+      if (dirent.name === "node_modules" || dirent.name === ".nuxt") {
         continue;
       }
       dirs.push(`${dir}/${dirent.name}`);
@@ -27,7 +24,7 @@ function readdirRecursively(
     }
   }
   for (const d of dirs) {
-    files = readdirRecursively(d, filterDirs, files);
+    files = readdirRecursively(d, files);
   }
   return files;
 }

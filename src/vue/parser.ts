@@ -1,13 +1,13 @@
 import path from "path";
 import fs from "fs";
 import { JSDOM } from "jsdom";
-import { readdirVueRecursively } from "./util/file";
-import { FileComponent } from "./types";
+import { readdirVueRecursively } from "../util/file";
+import { FileComponentsRelation } from "../types";
 
-export function getFileComponents(): FileComponent[] {
+export function getFileComponentsRelations(): FileComponentsRelation[] {
   const vueFiles = readdirVueRecursively(path.resolve("."));
 
-  const fileComponents: FileComponent[] = vueFiles.map((file) => {
+  const relations: FileComponentsRelation[] = vueFiles.map((file) => {
     let code = fs.readFileSync(file, "utf-8");
     const componentNames = getComponentsFromCode(code);
     return {
@@ -16,7 +16,7 @@ export function getFileComponents(): FileComponent[] {
     };
   });
 
-  return fileComponents;
+  return relations;
 }
 
 export function getComponentsFromCode(code: string): string[] {
