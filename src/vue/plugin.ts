@@ -34,7 +34,7 @@ export class LascaLoaderVuePlugin {
     });
     if (rule && rule !== "...") {
       const options = {
-        fileComponentRelations: getFileComponentsRelations(),
+        fileComponents: getFileComponentsRelations(),
       };
       if (rule.use) {
         (rule.use as any).options = options;
