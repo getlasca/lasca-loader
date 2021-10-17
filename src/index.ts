@@ -6,7 +6,7 @@ import { Component, FileComponentsRelation } from "./types";
 
 export default function loader(source: string) {
   const relations: FileComponentsRelation[] = (getOptions(this) as any)
-    .fileComponents;
+    .fileComponentRelations;
   const components: Component[] = JSON.parse(
     fs.readFileSync(path.resolve("./lasca/code.json"), "utf-8")
   );
