@@ -1,7 +1,7 @@
 import * as webpack from "webpack";
 import fs from "fs";
 import path from "path";
-import { getFileComponents } from "./parser";
+import { getFileComponentsRelations } from "./parser";
 
 export class LascaLoaderVuePlugin {
   static defaultOptions = {};
@@ -34,7 +34,7 @@ export class LascaLoaderVuePlugin {
     });
     if (rule && rule !== "...") {
       const options = {
-        fileComponents: getFileComponents(),
+        fileComponentRelations: getFileComponentsRelations(),
       };
       if (rule.use) {
         (rule.use as any).options = options;
