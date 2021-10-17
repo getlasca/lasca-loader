@@ -4,7 +4,7 @@ export interface Component {
   css: string;
 }
 
-export interface FileComponentsRelation {
+export interface FileComponent {
   file: string;
   components: string[];
 }
