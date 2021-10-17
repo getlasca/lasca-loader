@@ -17,3 +17,24 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Slack Notification Success
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: "Bot"
+          SLACK_ICON_EMOJI: ":bell:"
+          SLACK_COLOR: "#5cb85c"
+          SLACK_TITLE: "Success to Deploy :rocket:"
+          SLACK_MESSAGE: ":closed_book: ${{ github.repository }}"
+          MSG_MINIMAL: actions url
+      - name: Slack Notification Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: "Bot"
+          SLACK_ICON_EMOJI: ":bell:"
+          SLACK_COLOR: "#dc143c"
+          SLACK_TITLE: "Failure to Deploy :boom:"
+          SLACK_MESSAGE: ":closed_book: ${{ github.repository }}"
+          MSG_MINIMAL: actions url
