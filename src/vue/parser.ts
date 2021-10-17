@@ -1,8 +1,8 @@
 import path from "path";
 import fs from "fs";
 import { JSDOM } from "jsdom";
-import { readdirVueRecursively } from "./util/file";
-import { FileComponent } from "./types";
+import { readdirVueRecursively } from "../util/file";
+import { FileComponent } from "../types";
 
 export function getFileComponents(): FileComponent[] {
   const vueFiles = readdirVueRecursively(path.resolve("."));
