@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { getOptions } from "loader-utils";
+import { convertReact } from "./react/converter";
 import { convertVueTemplate, convertVueCss } from "./vue/converter";
 import { Component, FileComponentsRelation } from "./types";
 
@@ -14,11 +15,7 @@ export default function loader(source: string) {
   const ext = this.resourcePath.split("/").reverse()[0].split(".")[1];
 
   if (ext === "jsx") {
-    // TODO: react
-    // source = source.replace(
-    //   /\<lasca\>\<\/lasca\>/g,
-    //   `<div>${output.template}<style>{\`${output.css}\`}</style></div>`
-    // );
+    source = convertReact(source, components, this.resourcePath);
   } else if (this.resourceQuery.includes("type=template")) {
     source = convertVueTemplate(source, components, this.resourcePath);
   } else if (this.resourceQuery.includes("type=style")) {
