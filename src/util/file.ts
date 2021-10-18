@@ -4,7 +4,7 @@ import path from "path";
 export function readdirVueRecursively(dir: string): string[] {
   const files = readdirRecursively(dir);
   return files.filter((file) => {
-    return path.extname(file) === "vue";
+    return path.extname(file) === ".vue";
   });
 }
 

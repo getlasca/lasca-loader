@@ -1,6 +1,6 @@
 {
   "name": "lasca-loader",
-  "version": "0.0.107",
+  "version": "0.0.108",
   "author": "Lasca Inc.",
   "license": "MIT",
   "main": "dist/index.js",
