@@ -1,11 +1,10 @@
 import fs from "fs";
+import path from "path";
 
 export function readdirVueRecursively(dir: string): string[] {
   const files = readdirRecursively(dir);
   return files.filter((file) => {
-    const dotSplit = file.split("/").reverse()[0].split(".");
-    const extension = dotSplit[dotSplit.length - 1];
-    return extension === "vue";
+    return path.extname(file) === "vue";
   });
 }
 
