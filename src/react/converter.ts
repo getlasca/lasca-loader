@@ -22,6 +22,6 @@ export function convertReact(
     if (!component) {
       throw new Error(`component name ${attr.value} is not pulled at ${file}.`);
     }
-    return `<div>${component.template}<style>${component.css}</style></div>`;
+    return `<div>${component.template}<style>{\`${component.css}\`}</style></div>`;
   });
 }
