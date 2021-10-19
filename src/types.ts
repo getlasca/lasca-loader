@@ -1,6 +1,7 @@
 export interface Component {
   name: string;
-  template: string;
+  jsxTemplate: string;
+  vueTemplate: string;
   css: string;
 }
 
