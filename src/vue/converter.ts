@@ -22,7 +22,7 @@ export function convertVueTemplate(
     if (!component) {
       throw new Error(`component name ${attr.value} is not pulled at ${file}.`);
     }
-    lascaTags[i].outerHTML = component.template;
+    lascaTags[i].outerHTML = component.vueTemplate;
   }
 
   return doc.body.innerHTML;
