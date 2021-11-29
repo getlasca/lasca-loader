@@ -17,7 +17,7 @@ export default function loader(source: string) {
   } else if (this.resourceQuery.includes("type=style")) {
     const relations: FileComponentsRelation[] = (getOptions(this) as any)
       .fileComponentRelations;
-    source = convertVueCss(source, this.resourcePath, components, relations);
+    source = convertVueCss(source, this.resourcePath, relations);
   }
 
   return source;

@@ -1,3 +1,5 @@
+import path from "path";
+import fs from "fs";
 import { JSDOM } from "jsdom";
 import { Component, FileComponentsRelation } from "../types";
 
@@ -31,7 +33,6 @@ export function convertVueTemplate(
 export function convertVueCss(
   source: string,
   file: string,
-  components: Component[],
   relations: FileComponentsRelation[]
 ): string {
   let output = source;
@@ -41,12 +42,12 @@ export function convertVueCss(
     return output;
   }
 
-  const targetComponents = components.filter((component) => {
-    return relation.components.includes(component.name);
-  });
-  for (let i = 0; i < targetComponents.length; i++) {
-    output = output + targetComponents[i].css;
+  for (let i = 0; i < relation.components.length; i++) {
+    const css = fs.readFileSync(
+      path.resolve(`./lasca/assets/css/${relation.components[i]}.css`),
+      "utf-8"
+    );
+    output += css;
   }
-
   return output;
 }
