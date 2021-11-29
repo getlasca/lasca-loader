@@ -1,6 +1,4 @@
 import * as webpack from "webpack";
-import fs from "fs";
-import path from "path";
 import { getFileComponentsRelations } from "./parser";
 
 export class LascaLoaderVuePlugin {
@@ -12,12 +10,6 @@ export class LascaLoaderVuePlugin {
   }
 
   apply(compiler: webpack.Compiler) {
-    if (!fs.existsSync(path.resolve("./lasca/code.json"))) {
-      throw new Error(
-        "[ERROR] lasca components should be pulled by `lasca pull` command."
-      );
-    }
-
     const rule = compiler.options.module.rules.find((rule) => {
       if (rule === "...") {
         return false;
