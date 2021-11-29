@@ -13,7 +13,7 @@ export default function loader(source: string) {
   if ([".jsx", ".tsx"].includes(path.extname(this.resourcePath))) {
     source = convertReact(source, components, this.resourcePath);
   } else if (this.resourceQuery.includes("type=template")) {
-    source = convertVueTemplate(source, components, this.resourcePath);
+    source = convertVueTemplate(source, this.resourcePath);
   } else if (this.resourceQuery.includes("type=style")) {
     const relations: FileComponentsRelation[] = (getOptions(this) as any)
       .fileComponentRelations;
