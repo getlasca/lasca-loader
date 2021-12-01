@@ -1,11 +1,9 @@
+import path from "path";
+import fs from "fs";
 import { JSDOM } from "jsdom";
-import { Component, FileComponentsRelation } from "../types";
+import { FileComponentsRelation } from "../types";
 
-export function convertVueTemplate(
-  source: string,
-  components: Component[],
-  file: string
-): string {
+export function convertVueTemplate(source: string, file: string): string {
   const doc = new JSDOM(source).window.document;
   const lascaTags = doc.getElementsByTagName("lasca");
 
@@ -16,13 +14,13 @@ export function convertVueTemplate(
         `component attribute of lasca tag is not set at ${file}.`
       );
     }
-    const component = components.find(
-      (component) => component.name === attr.value
-    );
-    if (!component) {
+
+    const filePath = `./lasca/assets/vue_template/${attr.value}.tpl`;
+    if (!fs.existsSync(path.resolve(filePath))) {
       throw new Error(`component name ${attr.value} is not pulled at ${file}.`);
     }
-    lascaTags[i].outerHTML = component.vueTemplate;
+    const template = fs.readFileSync(path.resolve(filePath), "utf-8");
+    lascaTags[i].outerHTML = template;
   }
 
   return doc.body.innerHTML;
@@ -31,7 +29,6 @@ export function convertVueTemplate(
 export function convertVueCss(
   source: string,
   file: string,
-  components: Component[],
   relations: FileComponentsRelation[]
 ): string {
   let output = source;
@@ -41,12 +38,17 @@ export function convertVueCss(
     return output;
   }
 
-  const targetComponents = components.filter((component) => {
-    return relation.components.includes(component.name);
-  });
-  for (let i = 0; i < targetComponents.length; i++) {
-    output = output + targetComponents[i].css;
-  }
+  for (let i = 0; i < relation.components.length; i++) {
+    const filePath = `./lasca/assets/css/${relation.components[i]}.css`;
 
+    if (!fs.existsSync(path.resolve(filePath))) {
+      throw new Error(
+        `component name ${relation.components[i]} is not pulled at ${file}.`
+      );
+    }
+
+    const css = fs.readFileSync(path.resolve(filePath), "utf-8");
+    output += css;
+  }
   return output;
 }

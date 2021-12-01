@@ -1,12 +1,25 @@
+import fs from "fs";
+import path from "path";
 import { JSDOM } from "jsdom";
-import { Component } from "../types";
 
-export function convertReact(
-  source: string,
-  components: Component[],
-  file: string
-): string {
-  return source.replace(/<lasca(?: .+?)?>.*?<\/lasca>/g, (tag) => {
+export function convertReact(source: string, file: string): string {
+  const tagExp = /<lasca(?: .+?)?>.*?<\/lasca>/g;
+
+  let imports =
+    source.match(tagExp)?.map((tag) => {
+      const doc = new JSDOM(tag).window.document;
+      const attr = doc
+        .getElementsByTagName("lasca")[0]
+        .attributes.getNamedItem("component");
+      if (!attr) {
+        throw new Error(
+          `component attribute of lasca tag is not set at ${file}.`
+        );
+      }
+      return `import ${attr.value} from "../lasca/assets/css/${attr.value}.css"`;
+    }) || [];
+
+  const output = source.replace(tagExp, (tag) => {
     const doc = new JSDOM(tag).window.document;
     const attr = doc
       .getElementsByTagName("lasca")[0]
@@ -16,12 +29,14 @@ export function convertReact(
         `component attribute of lasca tag is not set at ${file}.`
       );
     }
-    const component = components.find(
-      (component) => component.name === attr.value
-    );
-    if (!component) {
+
+    const filePath = `./lasca/assets/jsx_template/${attr.value}.tpl`;
+    if (!fs.existsSync(path.resolve(filePath))) {
       throw new Error(`component name ${attr.value} is not pulled at ${file}.`);
     }
-    return `<div>${component.jsxTemplate}<style>{\`${component.css}\`}</style></div>`;
+    const template = fs.readFileSync(path.resolve(filePath), "utf-8");
+    return template;
   });
+
+  return imports.join(" ") + " " + output;
 }
