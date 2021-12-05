@@ -16,7 +16,16 @@ export function convertReact(source: string, file: string): string {
           `component attribute of lasca tag is not set at ${file}.`
         );
       }
-      return `import ${attr.value} from "../lasca/assets/css/${attr.value}.css"`;
+
+      const absoluteCssPath = `${process.cwd()}/lasca/assets/css/${
+        attr.value
+      }.css`;
+      const relativeCssPath = path.relative(
+        path.dirname(file),
+        absoluteCssPath
+      );
+
+      return `import ${attr.value} from "${relativeCssPath}";`;
     }) || [];
 
   const output = source.replace(tagExp, (tag) => {
