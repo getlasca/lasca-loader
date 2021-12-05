@@ -7,8 +7,6 @@ import { FileComponentsRelation } from "./types";
 export default function loader(source: string) {
   const options = getOptions(this) as any;
 
-  console.log(options.selfStyleImport);
-
   if ([".jsx", ".tsx"].includes(path.extname(this.resourcePath))) {
     source = convertReact(source, this.resourcePath, options.selfStyleImport);
   } else if (this.resourceQuery.includes("type=template")) {
