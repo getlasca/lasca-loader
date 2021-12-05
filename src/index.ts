@@ -5,13 +5,16 @@ import { convertVueTemplate, convertVueCss } from "./vue/converter";
 import { FileComponentsRelation } from "./types";
 
 export default function loader(source: string) {
+  const options = getOptions(this) as any;
+
+  console.log(options.selfStyleImport);
+
   if ([".jsx", ".tsx"].includes(path.extname(this.resourcePath))) {
-    source = convertReact(source, this.resourcePath);
+    source = convertReact(source, this.resourcePath, options.selfStyleImport);
   } else if (this.resourceQuery.includes("type=template")) {
     source = convertVueTemplate(source, this.resourcePath);
   } else if (this.resourceQuery.includes("type=style")) {
-    const relations: FileComponentsRelation[] = (getOptions(this) as any)
-      .fileComponentRelations;
+    const relations: FileComponentsRelation[] = options.fileComponentRelations;
     source = convertVueCss(source, this.resourcePath, relations);
   }
   return source;
